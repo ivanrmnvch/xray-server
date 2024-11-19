@@ -1,0 +1,53 @@
+services:
+  xray-vpn:
+    build:
+      context: xray-vpn
+      dockerfile: Dockerfile
+    image: xray-vpn:latest
+    container_name: xray-vpn
+#    profiles: ['dev', 'xray']
+    env_file:
+      - ./xray-vpn/.env
+    ports:
+      - "443:443"
+      - "9001:9001"
+      # - "0.0.0.0:8080:8080"
+      # - "80:80"
+    volumes:
+      - ./config/xray/config.json:/usr/local/etc/xray/config.json
+      - ./logs/xray/access.log:/var/log/xray/access.log
+      - ./logs/xray/error.log:/var/log/xray/error.log
+    healthcheck:
+      test: /usr/local/bin/xray api statssys
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    expose:
+      - "8080"
+    deploy:
+      restart_policy:
+        condition: any
+
+  xray-manager:
+    build:
+      context: .
+      dockerfile: ./containers/xray-manager/Dockerfile
+    image: xray-manager:latest
+    container_name: xray-manager
+#    profiles: ['dev', 'xray']
+    depends_on:
+      xray-vpn:
+        condition: service_healthy
+    env_file:
+      - ./containers/xray-manager/.env.local
+#    environment:
+#      - LOG_PATH = default
+    volumes:
+      - ${LOG_PATH}:/xray-manager/logs/xray-vpn.log
+    develop:
+      watch:
+        - path: ./repositories/xray-manager/package.json
+          action: rebuild
+        - path: ./repositories/xray-manager/src
+          target: /xray-manager/src
+          action: sync

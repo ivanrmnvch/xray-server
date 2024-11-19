@@ -1,4 +1,5 @@
 import XmlrpcClientInterface from '../common/interfaces/xmlrpcClient.interface';
+
 export default (): XmlrpcClientInterface => ({
 	host: process.env.XMLRPC_CLIENT_HOST,
 	port: +process.env.XMLRPC_CLIENT_PORT,
