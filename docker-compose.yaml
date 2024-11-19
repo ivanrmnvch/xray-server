@@ -11,8 +11,6 @@ services:
     ports:
       - "443:443"
       - "9001:9001"
-      # - "0.0.0.0:8080:8080"
-      # - "80:80"
     volumes:
       - ./config/xray/config.json:/usr/local/etc/xray/config.json
       - ./logs/xray/access.log:/var/log/xray/access.log
@@ -22,16 +20,14 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
-    expose:
-      - "8080"
     deploy:
       restart_policy:
         condition: any
 
   xray-manager:
     build:
-      context: .
-      dockerfile: ./containers/xray-manager/Dockerfile
+      context: xray-manager
+      dockerfile: Dockerfile
     image: xray-manager:latest
     container_name: xray-manager
 #    profiles: ['dev', 'xray']
@@ -39,15 +35,13 @@ services:
       xray-vpn:
         condition: service_healthy
     env_file:
-      - ./containers/xray-manager/.env.local
-#    environment:
-#      - LOG_PATH = default
+      - ./xray-manager/.env
     volumes:
-      - ${LOG_PATH}:/xray-manager/logs/xray-vpn.log
+      - ./config/xray/config.json:/xray-manager/config/config.json
     develop:
       watch:
-        - path: ./repositories/xray-manager/package.json
+        - path: ./xray-manager/package.json
           action: rebuild
-        - path: ./repositories/xray-manager/src
+        - path: ./xray-manager/src
           target: /xray-manager/src
           action: sync
