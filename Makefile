@@ -6,7 +6,7 @@ copy-env:
 
 init-folders:
 	mkdir -p logs \
-    && mkdir -p config/xr
+    && mkdir -p config/xray
 
 init-files:
 	echo "" > logs/access.log \
