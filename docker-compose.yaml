@@ -23,8 +23,8 @@ services:
     deploy:
       restart_policy:
         condition: any
-    # networks:
-    #   - xray_vpn_services_network
+    networks:
+      - xray_vpn_services_network
 
   xray-manager:
     build:
@@ -47,9 +47,9 @@ services:
         - path: ./xray-manager/src
           target: /xray-manager/src
           action: sync
-#     networks:
-#       - xray_vpn_services_network
+    networks:
+      - xray_vpn_services_network
 
-# networks:
-#   xray_vpn_services_network:
-#     external: true
+networks:
+  xray_vpn_services_network:
+    external: true
