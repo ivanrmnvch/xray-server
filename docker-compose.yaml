@@ -23,6 +23,8 @@ services:
     deploy:
       restart_policy:
         condition: any
+    # networks:
+    #   - xray_vpn_services_network
 
   xray-manager:
     build:
@@ -31,9 +33,9 @@ services:
     image: xray-manager:latest
     container_name: xray-manager
 #    profiles: ['dev', 'xray']
-    depends_on:
-      xray-vpn:
-        condition: service_healthy
+    # depends_on:
+    #   xray-vpn:
+    #     condition: service_healthy
     env_file:
       - ./xray-manager/.env
     volumes:
@@ -45,3 +47,9 @@ services:
         - path: ./xray-manager/src
           target: /xray-manager/src
           action: sync
+#     networks:
+#       - xray_vpn_services_network
+
+# networks:
+#   xray_vpn_services_network:
+#     external: true
