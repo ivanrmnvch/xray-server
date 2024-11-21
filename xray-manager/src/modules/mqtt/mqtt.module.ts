@@ -2,6 +2,7 @@ import { Global, Module } from '@nestjs/common';
 import { MQTT_CONFIG } from '../../const/mqtt';
 import { IClientOptions } from 'mqtt/src/lib/client';
 import MqttService from './mqtt.service';
+import XrayService from '../xray/xray.service';
 
 @Global()
 @Module({})
@@ -16,6 +17,7 @@ export default class MqttModule {
 					provide: MQTT_CONFIG,
 				},
 				MqttService,
+				XrayService,
 			],
 		};
 	}
