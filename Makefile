@@ -5,12 +5,12 @@ copy-env:
 	&& cd ../xray-vpn && cp .env.example .env
 
 init-folders:
-	mkdir -p logs \
+	mkdir -p logs/xray \
     && mkdir -p config/xray
 
 init-files:
-	echo "" > logs/access.log \
-	&& echo "" > logs/error.log \
+	echo "" > logs/xray/access.log \
+	&& echo "" > logs/xray/error.log \
 	&& cp xray-vpn/config.example.json config/xray/config.json
 
 manager-dev:
