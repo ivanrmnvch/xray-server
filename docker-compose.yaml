@@ -33,9 +33,9 @@ services:
     image: xray-manager:latest
     container_name: xray-manager
 #    profiles: ['dev', 'xray']
-    # depends_on:
-    #   xray-vpn:
-    #     condition: service_healthy
+    depends_on:
+      xray-vpn:
+        condition: service_healthy
     env_file:
       - ./xray-manager/.env
     volumes:
