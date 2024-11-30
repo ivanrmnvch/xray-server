@@ -1,3 +1,5 @@
+XRAY_MANAGER = xray-manager
+
 init: copy-env init-folders init-files
 
 copy-env:
@@ -13,8 +15,11 @@ init-files:
 	&& echo "" > logs/xray/error.log \
 	&& cp xray-vpn/config.example.json config/xray/config.json
 
+manager-build-dev:
+	APP_MODE=development docker compose build --no-cache $(XRAY_MANAGER)
+
 manager-dev:
-	docker compose up --watch xray-manager
+	APP_MODE=development docker compose up --watch $(XRAY_MANAGER)
 
 manager-stop:
 	docker stop xray-manager \
