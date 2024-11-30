@@ -4,7 +4,7 @@ export default class XrayConfigDto {
 		settings: {
 			clients: Array<{
 				id: string;
-				email: number;
+				email: string;
 				flow: 'xtls-rprx-vision';
 			}>;
 		};

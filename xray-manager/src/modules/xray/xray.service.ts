@@ -51,7 +51,7 @@ export default class XrayService {
 
 		vlessInbound.settings.clients.push({
 			id: clientId,
-			email: id,
+			email: id.toString(),
 			flow: 'xtls-rprx-vision',
 		});
 
