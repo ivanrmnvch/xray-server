@@ -61,6 +61,6 @@ export default class XrayService {
 		} catch (err) {
 			console.error('Ошибка при записи файла:', err);
 		}
-		// await this.xrayRestart();
+		await this.xrayRestart();
 	}
 }
