@@ -56,7 +56,7 @@ export default class XrayService {
 		console.log('>>> updated config', config.inbounds[0].settings.clients);
 
 		try {
-			fs.writeFileSync(configPath, JSON.stringify(config));
+			fs.writeFileSync(configPath, JSON.stringify(config, undefined, 2));
 			console.log('Данные успешно записаны!');
 		} catch (err) {
 			console.error('Ошибка при записи файла:', err);
