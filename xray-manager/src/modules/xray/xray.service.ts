@@ -49,15 +49,11 @@ export default class XrayService {
 			return;
 		}
 
-		const test = {
+		vlessInbound.settings.clients.push({
 			id: clientId,
 			email: id.toString(),
 			flow: 'xtls-rprx-vision',
-		}
-
-		console.log("test", test)
-
-		// vlessInbound.settings.clients.push();
+		});
 
 		console.log('>>> updated config', config.inbounds[0].settings.clients);
 
