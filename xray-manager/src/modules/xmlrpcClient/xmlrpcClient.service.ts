@@ -30,22 +30,24 @@ export default class XmlRpcClientService {
 		return this.callMethod('supervisor.signalProcess', [process, 1])
 			.then((result) => result as string)
 			.catch((error) => {
-				throw new Error(error);
+				// throw new Error(error);
 			});
 	}
 
 	async startProcess(process: string): Promise<string> {
 		return this.callMethod('supervisor.startProcess', [process])
 			.then((result) => result as string)
-			.catch((error) => {
-				throw new Error(error);
+			.catch((e) => {
+				return e;
+				// throw new Error(error);
 			});
 	}
 	async stopProcess(process: string): Promise<string> {
 		return this.callMethod('supervisor.stopProcess', [process])
 			.then((result) => result as string)
-			.catch((error) => {
-				throw new Error(error);
+			.catch((e) => {
+				return e;
+				// throw new Error(error);
 			});
 	}
 }
