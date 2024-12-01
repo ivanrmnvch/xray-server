@@ -41,7 +41,7 @@ export default class MqttService {
 			if (topic === 'vpn-client') {
 				this.xray.addClientToConfig(data);
 			}
-			if (topic === 'restart') {
+			if (topic === 'server-restart') {
 				if (data !== process.env.SERVER_NAME) {
 					return;
 				}
