@@ -27,6 +27,7 @@ export default class MqttService {
 		});
 
 		this.client.on('message', (topic, msg) => {
+			console.log('topic', topic);
 			let data: any;
 			try {
 				data = JSON.parse(msg.toString('utf8'));
@@ -34,6 +35,8 @@ export default class MqttService {
 				console.error(e);
 				return;
 			}
+
+			console.log('data', data);
 
 			if (topic === 'vpn-client') {
 				this.xray.addClientToConfig(data);

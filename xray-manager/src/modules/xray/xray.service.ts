@@ -14,6 +14,7 @@ export default class XrayService {
 	constructor(private xmlRpcClientService: XmlRpcClientService) {}
 
 	async xrayRestart() {
+		console.log('test restart');
 		try {
 			await this.xmlRpcClientService.stopProcess('xray');
 			await this.xmlRpcClientService.startProcess('xray');
