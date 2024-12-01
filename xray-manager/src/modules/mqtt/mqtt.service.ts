@@ -3,6 +3,7 @@ import { MQTT_CONFIG } from '../../const/mqtt';
 import { IClientOptions } from 'mqtt/src/lib/client';
 import * as mqtt from 'mqtt';
 import XrayService from '../xray/xray.service';
+import XrayClientDto from '../xray/dto/xrayClient.dto';
 
 @Injectable()
 export default class MqttService {
@@ -26,8 +27,22 @@ export default class MqttService {
 		});
 
 		this.client.on('message', (topic, msg) => {
+			let data: any;
+			try {
+				data = JSON.parse(msg.toString('utf8'));
+			} catch (e) {
+				console.error(e);
+				return;
+			}
+
 			if (topic === 'vpn-client') {
-				this.xray.addClientToConfig(JSON.parse(msg.toString('utf8')));
+				this.xray.addClientToConfig(data);
+			}
+			if (topic === 'restart') {
+				if (data !== process.env.SERVER_NAME) {
+					return;
+				}
+				this.xray.xrayRestart();
 			}
 		});
 	}
