@@ -19,7 +19,7 @@ export default class MqttService {
 		this.client.on('connect', () => {
 			console.log('Connected to MQTT broker');
 			// Подписка на тему
-			this.client.subscribe('vpn-client', (err) => {
+			this.client.subscribe(['vpn-client', 'server-restart'], (err) => {
 				if (!err) {
 					console.log('Subscribed to topic');
 				}
